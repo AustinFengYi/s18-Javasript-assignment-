@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <script>
+      var state = true;
+      function toggleLight(){
+        var image = document.getElementById("image"); 
+        if(state == true){
+          state = !state;
+          image.src = "img/off.jpg";
+        }else{
+        state = true;
+        image.src = "img/on.jpg";
+        }
+      }
+
+      var timeleft =0;
+      var id =0;
+      function timeDown(){
+        time = document.getElementById("timeSet").value;
+        if(time == ""){
+          alert("輸入不能是空白");
+          return;
+        }else{
+          time = parseInt(time);
+
+          if(isNaN(time)){
+            alert("輸入必須要是數字");
+            document.getElementById("timeSet").value="";
+            return;
+          }
+          document.getElementById("timer").innerHTML=time;
+          document.getElementById("timeSet").value="";
+        }
+
+        timeleft = time;
+        id = setInterval(countDowmTimer,1000);
+
+      }
+
+      function countDowmTimer(){
+        timeleft = timeleft - 1;
+        if(timeleft<=0){
+          document.getElementById("image").src="img/off.jpg";
+          clearInterval(id);
+          state=!state;
+        }
+        document.getElementById("timer").innerHTML=timeleft;
+
+      }
+
+
+    </script>
+  </head>
+
+  <body>
+    <img id="image" src="img/on.jpg" width="400" height="300">
+    <div id="timer"></div>
+    <form action="">
+      <input type="text" id="timeSet">
+      <button type="button" onclick="timeDown();">開始計時</button>
+    </form>  
+    <button type="button" onclick="toggleLight();"> 開燈<br>--</br>關燈 </button>
+  </body>
+</html>
